@@ -1,0 +1,230 @@
+/* Estilo global */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Contenedor principal */
+div {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Botones de lista */
+button {
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.8;
+  transform: scale(1.05);
+}
+
+button:focus {
+  outline: none;
+}
+
+/* Botón para seleccionar la lista activa */
+button.active {
+  background-color: #cce5ff;
+  border: 2px solid #007bff;
+}
+
+/* Botón para añadir una nueva lista */
+button.new-list {
+  background-color: #cce5ff;
+  border: 2px dashed #3399ff;
+  color: #3399ff;
+  font-weight: bold;
+}
+
+/* Estilo de la cabecera */
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+/* Contenedor del formulario */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px; /* Espacio entre los elementos del formulario */
+}
+
+.form-container input {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 200px;
+  transition: border-color 0.3s ease;
+}
+
+.form-container input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-container button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 16px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+  background-color: #218838;
+}
+
+/* Lista de botones de listas */
+.lista-botones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Lista de productos */
+.lista-productos {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-productos li {
+  background-color: #f9f9f9;
+  padding: 10px 15px;
+  margin: 5px 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.lista-productos li.comprado {
+  background-color: #d4edda;
+  text-decoration: line-through;
+}
+
+/* Estilos de los botones de acción en productos */
+.lista-productos button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.lista-productos button:hover {
+  color: #007bff;
+}
+
+.lista-productos .editar {
+  color: #ffc107;
+}
+
+.lista-productos .eliminar {
+  color: #dc3545;
+}
+
+.lista-productos .comprado {
+  color: #28a745;
+}
+
+/* Estilo del formulario de entrada de productos */
+.form-producto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form-producto input {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 250px;
+  transition: border-color 0.3s ease;
+}
+
+.form-producto input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-producto button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-producto button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para inputs de color */
+input[type="color"] {
+  padding: 0;
+  border: none;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+/* Transición y animación */
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
