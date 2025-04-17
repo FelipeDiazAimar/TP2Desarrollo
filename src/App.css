@@ -382,3 +382,101 @@ body {
   padding: 0 0.75rem;
   cursor: pointer;
 }
+
+/* Estilos para el formulario de primera lista */
+.first-list {
+  text-align: center;
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.first-list h3 {
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+}
+
+.color-picker-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.color-picker-container label {
+  color: var(--dark-color);
+  font-weight: 500;
+}
+
+/* Estilos para el formulario de primera lista */
+.first-list-form {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin: 2rem auto;
+  max-width: 800px;
+}
+
+.form-inline {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.color-picker-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.color-picker-container span {
+  white-space: nowrap;
+}
+
+.input-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.input-color {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-button {
+  background-color: var(--success-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+
+.confirm-button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .form-inline {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+  
+  .input-text,
+  .confirm-button {
+    width: 100%;
+  }
+}

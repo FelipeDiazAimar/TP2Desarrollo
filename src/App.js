@@ -4,13 +4,11 @@ import FormularioEntrada from "./componentes/FormularioEntrada";
 import './App.css';
 
 function App() {
-  const [listas, setListas] = useState([
-    { nombre: "Mi Lista", color: "#a5d8ff", productos: [] }
-  ]);
+  const [listas, setListas] = useState([]);
   const [indiceListaActiva, setIndiceListaActiva] = useState(0);
   const [nuevoNombre, setNuevoNombre] = useState("");
   const [nuevoColor, setNuevoColor] = useState("#a5d8ff");
-  const [creandoLista, setCreandoLista] = useState(false);
+  const [creandoLista, setCreandoLista] = useState(true);
   const [mostrarOpcionesEditar, setMostrarOpcionesEditar] = useState(false);
 
   const agregarProducto = (nombre, cantidad) => {
@@ -93,39 +91,12 @@ function App() {
     <div className="app-container">
       <header className="app-header">
         <h1>🛒 Mi Lista de Compras</h1>
-        <p className="subtitle">Organiza tus compras con estilo</p>
+        <p className="subtitle">Mantén un control de tus compras</p>
       </header>
 
-      <div className="listas-container">
-        <div className="listas-buttons">
-          {listas.map((lista, i) => (
-            <button
-              key={i}
-              onClick={() => setIndiceListaActiva(i)}
-              className={`lista-button ${i === indiceListaActiva ? 'active' : ''}`}
-              style={{ borderColor: lista.color }}
-            >
-              {lista.nombre}
-            </button>
-          ))}
-
-          <button
-            onClick={() => setCreandoLista(true)}
-            className="lista-button new"
-          >
-            ➕ Nueva Lista
-          </button>
-
-          <button
-            onClick={() => setMostrarOpcionesEditar(!mostrarOpcionesEditar)}
-            className="lista-button edit"
-          >
-            ✏️ Editar
-          </button>
-        </div>
-
-        {creandoLista && (
-          <div className="nueva-lista-form">
+      {listas.length === 0 ? (
+        <div className="first-list-form">
+          <div className="form-inline">
             <input
               type="text"
               value={nuevoNombre}
@@ -133,85 +104,153 @@ function App() {
               placeholder="Nombre de la lista"
               className="input-text"
             />
-            <input
-              type="color"
-              value={nuevoColor}
-              onChange={(e) => setNuevoColor(e.target.value)}
-              className="input-color"
-            />
-            <div className="form-actions">
-              <button onClick={agregarNuevaLista} className="confirm-button">
-                ✅ Confirmar
-              </button>
-              <button 
-                onClick={() => setCreandoLista(false)} 
-                className="cancel-button"
+            <div className="color-picker-container">
+              <span>Elige un color:</span>
+              <input
+                type="color"
+                value={nuevoColor}
+                onChange={(e) => setNuevoColor(e.target.value)}
+                className="input-color"
+              />
+            </div>
+            <button
+              onClick={agregarNuevaLista}
+              className="confirm-button"
+            >
+              🎉 Crear Lista
+            </button>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="listas-container">
+            <div className="listas-buttons">
+              {listas.map((lista, i) => (
+                <button
+                  key={i}
+                  onClick={() => setIndiceListaActiva(i)}
+                  className={`lista-button ${i === indiceListaActiva ? 'active' : ''}`}
+                  style={{ borderColor: lista.color }}
+                >
+                  {lista.nombre}
+                </button>
+              ))}
+
+              <button
+                onClick={() => setCreandoLista(true)}
+                className="lista-button new"
               >
-                ❌ Cancelar
+                ➕ Nueva Lista
+              </button>
+
+              <button
+                onClick={() => setMostrarOpcionesEditar(!mostrarOpcionesEditar)}
+                className="lista-button edit"
+              >
+                ✏️ Editar
               </button>
             </div>
+
+            {creandoLista && (
+              <div className="nueva-lista-form">
+                <div className="form-inline">
+                  <input
+                    type="text"
+                    value={nuevoNombre}
+                    onChange={(e) => setNuevoNombre(e.target.value)}
+                    placeholder="Nombre de la lista"
+                    className="input-text"
+                  />
+                  <div className="color-picker-container">
+                    <span>Elige un color:</span>
+                    <input
+                      type="color"
+                      value={nuevoColor}
+                      onChange={(e) => setNuevoColor(e.target.value)}
+                      className="input-color"
+                    />
+                  </div>
+                  <div className="form-actions">
+                    <button onClick={agregarNuevaLista} className="confirm-button">
+                      ✅ Confirmar
+                    </button>
+                    <button 
+                      onClick={() => setCreandoLista(false)} 
+                      className="cancel-button"
+                    >
+                      ❌ Cancelar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {mostrarOpcionesEditar && (
+              <div className="editar-lista-form">
+                <h4>Editar Lista Actual</h4>
+                <div className="form-inline">
+                  <input
+                    type="text"
+                    placeholder="Nuevo nombre"
+                    value={nuevoNombre}
+                    onChange={(e) => setNuevoNombre(e.target.value)}
+                    className="input-text"
+                  />
+                  <div className="color-picker-container">
+                    <span>Nuevo color:</span>
+                    <input
+                      type="color"
+                      value={nuevoColor}
+                      onChange={(e) => setNuevoColor(e.target.value)}
+                      className="input-color"
+                    />
+                  </div>
+                  <div className="form-actions">
+                    <button
+                      onClick={() => {
+                        alEditarNombreYColor(nuevoNombre, nuevoColor);
+                        setMostrarOpcionesEditar(false);
+                      }}
+                      className="save-button"
+                    >
+                      💾 Guardar
+                    </button>
+                    <button
+                      onClick={() => {
+                        const nuevasListas = [...listas];
+                        nuevasListas.splice(indiceListaActiva, 1);
+                        setListas(nuevasListas);
+                        setIndiceListaActiva(0);
+                        setMostrarOpcionesEditar(false);
+                      }}
+                      className="delete-button"
+                    >
+                      🗑️ Eliminar
+                    </button>
+                    <button 
+                      onClick={() => setMostrarOpcionesEditar(false)} 
+                      className="cancel-button"
+                    >
+                      ❌ Cancelar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        )}
 
-        {mostrarOpcionesEditar && (
-          <div className="editar-lista-form">
-            <h4>Editar Lista Actual</h4>
-            <input
-              type="text"
-              placeholder="Nuevo nombre"
-              value={nuevoNombre}
-              onChange={(e) => setNuevoNombre(e.target.value)}
-              className="input-text"
-            />
-            <input
-              type="color"
-              value={nuevoColor}
-              onChange={(e) => setNuevoColor(e.target.value)}
-              className="input-color"
-            />
-            <div className="form-actions">
-              <button
-                onClick={() => {
-                  alEditarNombreYColor(nuevoNombre, nuevoColor);
-                  setMostrarOpcionesEditar(false);
-                }}
-                className="save-button"
-              >
-                💾 Guardar
-              </button>
-              <button
-                onClick={() => {
-                  const nuevasListas = [...listas];
-                  nuevasListas.splice(indiceListaActiva, 1);
-                  setListas(nuevasListas);
-                  setIndiceListaActiva(0);
-                  setMostrarOpcionesEditar(false);
-                }}
-                className="delete-button"
-              >
-                🗑️ Eliminar
-              </button>
-              <button 
-                onClick={() => setMostrarOpcionesEditar(false)} 
-                className="cancel-button"
-              >
-                ❌ Cancelar
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
+          <FormularioEntrada alAgregar={agregarProducto} />
 
-      <FormularioEntrada alAgregar={agregarProducto} />
-
-      <ListaCompras
-        lista={listas[indiceListaActiva].productos}
-        colorLista={listas[indiceListaActiva].color}
-        alEliminar={eliminarProducto}
-        alEditar={cambiarEditar}
-        alGuardar={guardarEdicion}
-        alCambiarComprado={cambiarComprado}
-      />
+          <ListaCompras
+            lista={listas[indiceListaActiva].productos}
+            colorLista={listas[indiceListaActiva].color}
+            alEliminar={eliminarProducto}
+            alEditar={cambiarEditar}
+            alGuardar={guardarEdicion}
+            alCambiarComprado={cambiarComprado}
+          />
+        </>
+      )}
     </div>
   );
 }
