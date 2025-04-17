@@ -1,67 +1,42 @@
 import { useState } from "react";
 
-// Componente que permite escribir un nuevo ítem y agregarlo
-function FormularioEntrada({ alAgregar, alEditarNombreYColor }) {
+function FormularioEntrada({ alAgregar }) {
   const [entrada, setEntrada] = useState("");
-  const [cantidad, setCantidad] = useState("");
-  const [nuevoNombre, setNuevoNombre] = useState("");
-  const [nuevoColor, setNuevoColor] = useState("");
+  const [cantidad, setCantidad] = useState(1);
 
   const manejarSubmit = (e) => {
     e.preventDefault();
-
-    const cantidadNumero = parseInt(cantidad);
-
     if (entrada.trim() === "") return;
-    if (isNaN(cantidadNumero) || cantidadNumero <= 0) return;
-
-    alAgregar(entrada, cantidadNumero);
+    alAgregar(entrada, parseInt(cantidad) || 1);
     setEntrada("");
-    setCantidad("");
-  };
-
-  const manejarEditar = () => {
-    if (nuevoNombre.trim() === "" || !nuevoColor) return;
-    alEditarNombreYColor(nuevoNombre, nuevoColor);
-    setNuevoNombre("");
-    setNuevoColor("");
+    setCantidad(1);
   };
 
   return (
-    <div>
-      <form onSubmit={manejarSubmit}>
+    <form onSubmit={manejarSubmit} className="product-form">
+      <div className="form-group">
         <input
           type="text"
-          placeholder="Nombre del producto"
+          placeholder="🍎 Nombre del producto"
           value={entrada}
           onChange={(e) => setEntrada(e.target.value)}
+          className="form-input"
         />
+      </div>
+      <div className="form-group">
         <input
           type="number"
-          placeholder="Cantidad"
+          placeholder="🔢 Cantidad"
           value={cantidad}
+          min="1"
           onChange={(e) => setCantidad(e.target.value)}
+          className="form-input"
         />
-        <button type="submit">➕ Agregar</button>
-      </form>
-
-      <div style={{ marginTop: "20px" }}>
-        <input
-          type="text"
-          placeholder="Nuevo nombre de la lista"
-          value={nuevoNombre}
-          onChange={(e) => setNuevoNombre(e.target.value)}
-        />
-        <input
-          type="color"
-          value={nuevoColor}
-          onChange={(e) => setNuevoColor(e.target.value)}
-        />
-        <button onClick={manejarEditar}>
-          🖋️ Editar Nombre y Color
-        </button>
       </div>
-    </div>
+      <button type="submit" className="submit-button">
+        ✨ Agregar Producto
+      </button>
+    </form>
   );
 }
 
